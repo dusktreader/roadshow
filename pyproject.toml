@@ -1,0 +1,89 @@
+[project]
+name = "roadshow"
+version = "0.1.0"
+description = "A reusable framework for interactive Python demos"
+authors = [
+    {name = "Tucker Beck", email ="tucker.beck@gmail.com"},
+]
+readme = "README.md"
+license-files = ["LICENSE.md"]
+
+requires-python = ">=3.11"
+dependencies = [
+    "py-buzz>=9.0.1",
+    "rich>=14.0",
+    "typer>=0.24.1",
+]
+
+
+[project.urls]
+homepage = "https://github.com/dusktreader/roadshow"
+source = "https://github.com/dusktreader/roadshow"
+changelog = "https://github.com/dusktreader/roadshow/blob/main/CHANGELOG.md"
+
+
+[project.scripts]
+roadshow-demo = "roadshow_demo.main:main"
+
+
+
+[dependency-groups]
+dev = [
+    "debugpy>=1.8",
+    "ipython>=8.18",
+    "mkdocstrings[python]>=0.29",
+    "pyclean>=3.1",
+    "pygments>=2.19",
+    "pytest>=8.3",
+    "pytest-bdd>=7.0",
+    "pytest-cov>=6.0",
+    "pytest-mock>=3.14",
+    "pytest-pretty>=1.2",
+    "pytest-random-order>=1.1",
+    "ruff>=0.11",
+    "ty>=0.0",
+    "typos>=1.31",
+    "zensical>=0.1.0",
+]
+
+
+[tool.uv]
+package = true
+
+
+[tool.pytest.ini_options]
+addopts = [
+    "--random-order",
+    "--cov=src/roadshow",
+    "--cov-report=term-missing",
+    "--cov-fail-under=85",
+    "--cov-report=xml:.coverage.xml",
+    "--junitxml=.junit.xml",
+    "--override-ini=junit_family=legacy",
+]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_steps.py"]
+markers = [
+    "integration: Integration tests that exercise the real package with no mocking",
+    "unit: Fast unit tests with all external dependencies mocked",
+]
+
+
+[tool.ruff]
+line-length = 120
+src = ["src/roadshow", "tests", "src/roadshow_demo"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/roadshow/core.py" = ["BLE001"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+
+[tool.typos.default]
+extend-ignore-identifiers-re = []
+
+
+[build-system]
+requires = ["uv-build>=0.1.0"]
+build-backend = "uv_build"

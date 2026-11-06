@@ -1,0 +1,41 @@
+name: Docs on main
+run-name: build-docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'examples/**'
+      - 'src/roadshow/**'
+      - 'docs/zensical.toml'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - 'Makefile'
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+
+    - name: Set up Python
+      run: uv python install 3.14
+
+    - name: Build Documentation
+      run: |
+        make docs/build
+
+    - name: Deploy documentation
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/site
