@@ -712,13 +712,16 @@
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">Roadshow</span><span class="p">(</span><span class="s2">"my_project"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"My project"</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">main</span><span class="p">()</span>
 </span></code></pre></div>
 <p>Bind the function as a console script in <code>pyproject.toml</code>:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">[project.scripts]</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">my-project-demo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my_project.main:main"</span>
 </span></code></pre></div>
 <h3 id="install-your-project">Install your project</h3>
-<p>Before you can run the demo, you will need to install your pythong package locally. Typically, you will want to install
+<p>Before you can run the demo, you will need to install your python package locally. Typically, you will want to install
 in editable mode so you can tinker on the demos while you build them:</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>--editable<span class="w"> </span>.
 </span></code></pre></div>
