@@ -9,13 +9,21 @@ Mark each demo with one feature name. Roadshow groups tagged functions by featur
 with its source and output.
 
 ```python
---8<-- "examples/tagged_demos.py"
+--8<-- "examples/feature_groups.py"
 ```
 
 Create an entrypoint that scans the package and starts the CLI:
 
 ```python
---8<-- "examples/cli_entrypoint.py"
+from roadshow import Roadshow
+
+
+def main() -> None:
+    Roadshow("my_app", title="My app").run()
+
+
+if __name__ == "__main__":
+    main()
 ```
 
 Select one or more feature groups with `--feature`; repeat the option to select multiple groups. Omit it to run every
@@ -37,8 +45,15 @@ a package and its submodules, then returns demos grouped by feature. Package dis
 module-level code runs during discovery.
 
 ```python
---8<-- "examples/discovery.py"
+from my_app import demos
+from roadshow import Roadshow, discover_demos
+
+module_demos = discover_demos(demos)
+package_demos = Roadshow("my_app").discover()
 ```
+
+Use `Roadshow(get_standalone_module()).run()` to discover demos in a directly executed script that is not an importable
+package. The helper supplies the current `__main__` module in the same position as a package name.
 
 
 ## Supply input and arguments
@@ -47,7 +62,7 @@ Set `input_text` and `argv` on the decorator to give a demo predictable standard
 first `sys.argv` value is the demo function name.
 
 ```python
---8<-- "examples/input_arguments.py"
+--8<-- "examples/input_helpers.py"
 ```
 
 The demo reads `Ada` from `input()` and sees `("--formal",)` in `sys.argv[1:]`. Explicit `input_text` or `argv`
@@ -71,7 +86,17 @@ Use `capture_demo()` to run a demo without rendering it. The result contains cap
 exception or exit code when one occurs. Check `succeeded` to determine whether it completed successfully.
 
 ```python
---8<-- "examples/capture_results.py"
+from roadshow import capture_demo
+
+
+def show_report():
+    print("Three records found.")
+
+
+result = capture_demo(show_report)
+print(result.stdout or "", end="")
+if not result.succeeded:
+    print(result.error or result.exit_code)
 ```
 
 Capture redirects standard input, output, and error. It records ordinary exceptions in `error` and `SystemExit` in
@@ -83,12 +108,25 @@ concurrently from multiple threads.
 
 ## Inspect and render demos
 
-`decompose_demo()` returns a `DemoDetails` value with a demo's module, name, docstring, and executable source. Every demo
-rendered by `display_demo()` needs a docstring; Roadshow uses it as the demo description. `decompose_demo()` raises
-`RoadshowError` if the docstring is missing.
+`decompose_demo()` returns a `DemoDetails` value with a demo's module, name, docstring, and source. The source includes
+the function signature and executable body. If a demo has no docstring, Roadshow uses `function_name() demo` as its
+description.
 
 ```python
---8<-- "examples/inspect_render.py"
+from rich.console import Console
+from roadshow import decompose_demo, demo
+from roadshow.render import display_demo
+
+
+@demo("reports")
+def show_report():
+    """Print a report summary."""
+    print("Three records found.")
+
+
+details = decompose_demo(show_report)
+print(details.source)
+display_demo(show_report, Console())
 ```
 
 `display_demo()` runs and captures the demo before rendering its documentation, source, output, errors, and exit status.

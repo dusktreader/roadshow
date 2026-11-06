@@ -99,30 +99,34 @@ def test_demo_requires_exactly_one_nonempty_feature():
         call_demo("basic", argv=("valid", None))
 
 
-def test_decompose_demo_extracts_docstring_and_function_body():
+def test_decompose_demo_extracts_docstring_signature_and_body():
     details = decompose_demo(sample_source)
 
     assert details.name == "sample_source"
     assert details.module == "test_core"
     assert details.docstring == "Print a sample value for source extraction."
-    assert details.source == "print('source sample')\n"
+    assert details.source == "def sample_source():\n    print('source sample')\n"
 
 
 def test_decompose_demo_handles_nested_blocks():
     details = decompose_demo(nested_demo)
     source_lines = details.source.splitlines()
 
-    assert source_lines[0] == "def nested():"
-    assert source_lines[1].startswith("    print(")
-    assert source_lines[-1] == "nested()"
+    nonblank_source_lines = [line for line in source_lines if line]
+
+    assert nonblank_source_lines[0] == "def nested_demo():"
+    assert nonblank_source_lines[1] == "    def nested():"
+    assert nonblank_source_lines[2].startswith("        print(")
+    assert nonblank_source_lines[-1] == "    nested()"
 
 
-def test_decompose_demo_requires_a_docstring():
+def test_decompose_demo_uses_function_name_when_docstring_is_missing():
     def missing_docstring():
         pass
 
-    with pytest.raises(RoadshowError, match="has no docstring"):
-        decompose_demo(missing_docstring)
+    details = decompose_demo(missing_docstring)
+
+    assert details.docstring == "missing_docstring() demo"
 
 
 def test_capture_demo_captures_output_input_argv_and_isolates_home(monkeypatch: pytest.MonkeyPatch):

@@ -7,7 +7,7 @@ import pytest
 import roadshow.app as app_module
 import typer
 from rich.console import Console
-from roadshow import DemoResult, Roadshow
+from roadshow import DemoResult, Roadshow, get_standalone_module
 from roadshow.core import capture_demo
 from roadshow_demo.capture import show_input_capture
 from roadshow_demo.lifecycle import show_cleanup_after_exception, show_xdg_isolation
@@ -144,6 +144,10 @@ def test_run_invokes_typer_with_the_bound_entrypoint(monkeypatch: pytest.MonkeyP
     app.run()
 
     typer_run.assert_called_once_with(app.start)
+
+
+def test_get_standalone_module_returns_the_main_module():
+    assert get_standalone_module() is import_module("__main__")
 
 
 def test_example_main_package_is_used_by_the_entrypoint():

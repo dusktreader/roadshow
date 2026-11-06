@@ -1,6 +1,6 @@
 [project]
 name = "roadshow"
-version = "0.1.0"
+version = "0.1.1"
 description = "A reusable framework for interactive Python demos"
 authors = [
     {name = "Tucker Beck", email ="tucker.beck@gmail.com"},
@@ -49,6 +49,10 @@ dev = [
 
 [tool.uv]
 package = true
+
+
+[tool.uv.build-backend]
+module-name = ["roadshow", "roadshow_demo"]
 
 
 [tool.pytest.ini_options]

@@ -98,10 +98,7 @@ def discover_demos(module: ModuleType) -> list[DemoFunction]:
 
 def decompose_demo(function: DemoFunction) -> DemoDetails:
     """Extract a demo function's docstring and executable body."""
-    docstring = RoadshowError.enforce_defined(
-        inspect.getdoc(function),
-        f"Demo function {function.__name__!r} has no docstring",
-    )
+    docstring = inspect.getdoc(function) or f"{function.__name__}() demo"
 
     source_lines, _ = inspect.getsourcelines(function)
     source_text = textwrap.dedent("".join(source_lines))
@@ -127,9 +124,9 @@ def decompose_demo(function: DemoFunction) -> DemoDetails:
     ):
         body = body[1:]
 
-    source = "\n".join(ast.unparse(statement) for statement in body)
-    if source:
-        source += "\n"
+    function_node.decorator_list = []
+    function_node.body = body
+    source = ast.unparse(function_node) + "\n"
 
     return DemoDetails(
         module=function.__module__.rsplit(".", maxsplit=1)[-1],

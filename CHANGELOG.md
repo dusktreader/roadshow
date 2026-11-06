@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v0.1.1 - 2026-11-06
+
+### Fixed
+
+- Include `roadshow_demo` package in install targets.
+
+
+### Added
+
+- Make examples runnable
+- Provide `get_standalone_module()` helper for demos that are not part of a package.
+
+
 ## v0.1.0 - 2026-11-06
 
 ### Added

@@ -64,6 +64,9 @@ from roadshow import Roadshow
 
 def main():
     Roadshow("my_project", title="My project").run()
+
+if __name__ == "__main__":
+    main()
 ```
 
 Bind the function as a console script in `pyproject.toml`:
@@ -76,7 +79,7 @@ my-project-demo = "my_project.main:main"
 
 ### Install your project
 
-Before you can run the demo, you will need to install your pythong package locally. Typically, you will want to install
+Before you can run the demo, you will need to install your python package locally. Typically, you will want to install
 in editable mode so you can tinker on the demos while you build them:
 
 ```shell

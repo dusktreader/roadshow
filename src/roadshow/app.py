@@ -142,3 +142,8 @@ class Roadshow:
         console.print()
         if failed and non_interactive:
             raise typer.Exit(1)
+
+
+def get_standalone_module() -> ModuleType:
+    """Return the main module for standalone demo discovery."""
+    return import_module("__main__")

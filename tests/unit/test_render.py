@@ -6,6 +6,10 @@ from roadshow.render import display_demo
 from tests.unit.test_core import sample_error, sample_exit, sample_source, sample_stderr
 
 
+def sample_without_docstring():
+    print("fallback demo")
+
+
 def test_display_demo_renders_source_and_captured_output():
     output = StringIO()
     console = Console(file=output, force_terminal=False, width=100)
@@ -15,8 +19,17 @@ def test_display_demo_renders_source_and_captured_output():
     rendered = output.getvalue()
     assert result.succeeded
     assert "examples: sample_source()" in rendered
+    assert "def sample_source():" in rendered
     assert "print('source sample')" in rendered
     assert "source sample" in rendered
+
+
+def test_display_demo_uses_function_name_when_docstring_is_missing():
+    output = StringIO()
+
+    display_demo(sample_without_docstring, Console(file=output, force_terminal=False, width=100))
+
+    assert "sample_without_docstring() demo" in output.getvalue()
 
 
 def test_display_demo_renders_progress_left_aligned_in_the_outer_panel_footer():
