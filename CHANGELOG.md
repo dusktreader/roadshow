@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v0.1.2 - 2026-11-06
+
+### Fixed
+
+- Correct broken image links for pypi.org.
+
+
+### Added
+
+- Provide terminal screenshots on README and home page.
+
+
 ## v0.1.1 - 2026-11-06
 
 ### Fixed

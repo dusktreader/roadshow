@@ -67,6 +67,7 @@ docstring_style = "google"
 "pymdownx.snippets" = {}
 "pymdownx.superfences" = {}
 "pymdownx.details" = {}
+"pymdownx.blocks.caption" = {}
 admonition = {}
 attr_list = {}
 

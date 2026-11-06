@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/dusktreader/roadshow/actions/workflows/main.yml/badge.svg)](https://github.com/dusktreader/roadshow/actions/workflows/main.yml)
 [![Documentation Status](https://github.com/dusktreader/roadshow/actions/workflows/docs.yml/badge.svg)](https://dusktreader.github.io/roadshow/)
 
-![roadshow-logo](https://github.com/dusktreader/roadshow/blob/main/docs/source/static/roadshow-text.png)
+![roadshow-logo](https://raw.githubusercontent.com/dusktreader/roadshow/main/docs/source/static/roadshow-text.png)
 
 Roadshow makes it easy to demonstrate your project's capabilities in a cli with rich output.
 
@@ -27,6 +27,8 @@ The complete documentation can be found at the
 
 
 ## Demo
+
+![roadshow-screenshot](https://raw.githubusercontent.com/dusktreader/roadshow/main/docs/source/static/roadshow-screenshot.png)
 
 To see the features in action, you can run the demo in an isolated environment with `uv`:
 
