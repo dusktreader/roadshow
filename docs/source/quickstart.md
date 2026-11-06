@@ -3,12 +3,14 @@
 Mark regular Python functions with `@demo` decorators and watch Roadshow demonstrate all your projects awesome features!
 
 
-## Requirements
+## The basics
+
+### Requirements
 
 Roadshow requires Python 3.11 or newer.
 
 
-## Install
+### Install
 
 Install Roadshow and its CLI dependencies with `pip`:
 
@@ -17,7 +19,21 @@ pip install roadshow
 ```
 
 
-## Define tagged demos
+### Try the Roadshow demo
+
+To see the features in action, you can run the Roadshow demo (built with Roadshow):
+
+```shell
+roadshow-demo
+```
+
+
+## Build your own demo
+
+Now, you're ready to get started building your own demos for your project!
+
+
+### Define tagged demos
 
 Use `@demo` with one feature name. Function names do not need a special prefix.
 
@@ -38,7 +54,7 @@ def show_configuration():
 ```
 
 
-## Bind the CLI entrypoint
+### Bind the CLI entrypoint
 
 Create a `main.py` function that configures Roadshow and starts its Typer CLI:
 
@@ -58,9 +74,19 @@ my-project-demo = "my_project.main:main"
 ```
 
 
-## Run the demo
+### Install your project
 
-Now you can run your demo!
+Before you can run the demo, you will need to install your pythong package locally. Typically, you will want to install
+in editable mode so you can tinker on the demos while you build them:
+
+```shell
+pip install --editable .
+```
+
+
+### Run the demo
+
+Since you defined an entry point in your pyproject.toml, the executable should now be available in your shell:
 
 ```shell
 my-project-demo
@@ -68,6 +94,7 @@ my-project-demo
 
 You can check out options available by passing `--help` to the command.
 
+---
 
 ## Learn about more features
 
