@@ -61,19 +61,27 @@ Create a `main.py` function that configures Roadshow and starts its Typer CLI:
 ```python
 from roadshow import Roadshow
 
+import my_project_demo
+
 
 def main():
-    Roadshow("my_project", title="My project").run()
+    Roadshow(my_project_demo, title="My project").run()
 
 if __name__ == "__main__":
     main()
 ```
 
+!!! note
+
+    You must pass the module where your demos are defined to `Roadshow()`. This can be the imported module, a string
+    with the name of the module (will auto-import), or the special `__package__` variable. This will allow `Roadshow`
+    to automatically gather all the demos you have defined in that package.
+
 Bind the function as a console script in `pyproject.toml`:
 
 ```toml
 [project.scripts]
-my-project-demo = "my_project.main:main"
+my-project-demo = "my_project_demo.main:main"
 ```
 
 
