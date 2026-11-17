@@ -657,8 +657,10 @@ module-level code runs during discovery.</p>
 <p>Use <code>Roadshow(get_standalone_module()).run()</code> to discover demos in a directly executed script that is not an importable
 package. The helper supplies the current <code>__main__</code> module in the same position as a package name.</p>
 <h2 id="supply-input-and-arguments">Supply input and arguments</h2>
-<p>Set <code>input_text</code> and <code>argv</code> on the decorator to give a demo predictable standard input and command-line arguments. The
-first <code>sys.argv</code> value is the demo function name.</p>
+<p>Set <code>input_text</code> and <code>argv</code> on the decorator to give a demo predictable standard input and command-line arguments. Use
+<code>input_lines</code> instead when each logical input line should be separate: <code>["Ada", "Grace"]</code> supplies <code>"Ada\nGrace\n"</code> and
+<code>[]</code> supplies an empty stream. Roadshow adds a newline after each line. The first <code>sys.argv</code> value is the demo function
+name.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="sd">"""</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="sd">Demonstrate how Roadshow can supply cli args and input to a demo function.</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
@@ -683,8 +685,11 @@ first <code>sys.argv</code> value is the demo function name.</p>
 </span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
 </span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    <span class="n">Roadshow</span><span class="p">(</span><span class="n">get_standalone_module</span><span class="p">(),</span> <span class="n">title</span><span class="o">=</span><span class="s2">"examples"</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </span></code></pre></div>
-<p>The demo reads <code>Ada</code> from <code>input()</code> and sees <code>("--formal",)</code> in <code>sys.argv[1:]</code>. Explicit <code>input_text</code> or <code>argv</code>
-arguments to <code>capture_demo()</code> and <code>display_demo()</code> override the decorator fixtures.</p>
+<p>The demo reads <code>Ada</code> from <code>input()</code> and sees <code>("--formal",)</code> in <code>sys.argv[1:]</code>. Explicit <code>input_text</code> or
+<code>input_lines</code> arguments to <code>capture_demo()</code> and <code>display_demo()</code> replace the decorator's stdin fixture; <code>argv</code> overrides
+the configured arguments. <code>input_text</code> is supplied unchanged, and callers cannot provide both input forms in one call.
+<code>display_demo()</code> renders non-empty effective <code>argv</code> tokens and stdin in titled panels before captured output. The args/opts
+panel shows each token separately and is omitted when <code>argv</code> is empty; the stdin panel is omitted when stdin is empty.</p>
 <h2 id="run-setup-and-cleanup-hooks">Run setup and cleanup hooks</h2>
 <p>Pass zero-argument callables as <code>before</code> and <code>after</code>. Roadshow captures their output along with the demo output. It runs
 <code>before</code> before home isolation. With isolation enabled, it runs <code>after</code> in a <code>finally</code> block after restoring the
