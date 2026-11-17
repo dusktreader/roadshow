@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v0.2.0 - 2026-11-16
+
+### Added
+
+- Provide `linput_lines` and `argv` helpers to set up input and args for demo functions.
+
+
 ## v0.1.2 - 2026-11-06
 
 ### Fixed
