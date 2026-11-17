@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v0.2.1 - 2026-11-16
+
+### Added
+
+- Show a "Loading <demo function name>" spinner while a demo function is running.
+- Add a `spinner` demo feature to `roadshow_demo`.
+
+
 ## v0.2.0 - 2026-11-16
 
 ### Added

@@ -36,7 +36,15 @@ def display_demo(
     details = decompose_demo(function)
     effective_input_text = _resolve_demo_input(function, input_text, input_lines)
     effective_argv = _resolve_demo_argv(function, argv)
-    result = capture_demo(function, input_text=effective_input_text, argv=effective_argv, isolate_home=isolate_home)
+    # Bind the spinner to the real output stream now, since capture_demo redirects sys.stdout while the demo runs.
+    spinner_console = Console(file=console.file, force_terminal=console.is_terminal)
+    if console.is_terminal:
+        with spinner_console.status(f"Loading [yellow]{details.name}()[/yellow]...", spinner="dots"):
+            result = capture_demo(
+                function, input_text=effective_input_text, argv=effective_argv, isolate_home=isolate_home
+            )
+    else:
+        result = capture_demo(function, input_text=effective_input_text, argv=effective_argv, isolate_home=isolate_home)
     parts = [
         Markdown(details.docstring),
         Rule(characters=" "),
