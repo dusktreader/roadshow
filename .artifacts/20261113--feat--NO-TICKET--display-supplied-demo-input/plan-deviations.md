@@ -117,3 +117,32 @@ The user requested wording consistent with the supplied-input panel.
 #### Verification
 
 `make qa/test/unit` passes all 51 tests with 98.50% coverage. `make qa/lint`, `make qa/types`, and `make docs/build` pass.
+
+### Change 05: Remove demo-package unit tests
+
+#### Stage and source
+
+QA human feedback, user request: remove tests of `roadshow_demo` because unit tests should not test demo packages.
+
+#### Request
+
+Remove all unit tests that directly exercise or import the `roadshow_demo` package.
+
+#### Plan alignment
+
+This QA-stage cleanup is outside the approved plan. It removes demo-package-specific unit coverage as requested, while
+retaining tests of Roadshow using test-local demo functions.
+
+#### Change made
+
+Removed the five `roadshow_demo`-specific tests and their imports from `tests/unit/test_app.py`.
+
+#### Reason
+
+The user stated that unit tests should not be written for demo packages.
+
+#### Verification
+
+`uv run pytest tests/unit/test_app.py --no-cov` passes all six remaining tests. Searching `tests` for `roadshow_demo`
+returns no matches. After user QA approval, `make qa/test/unit` passes all 46 tests at 95.86% coverage; `make qa/lint`,
+`make qa/types`, `make docs/build`, and `git diff --check` pass.
