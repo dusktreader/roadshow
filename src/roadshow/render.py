@@ -11,7 +11,14 @@ from rich.rule import Rule
 from rich.syntax import Syntax
 from rich.text import Text
 
-from roadshow.core import DemoFunction, DemoResult, capture_demo, decompose_demo
+from roadshow.core import (
+    DemoFunction,
+    DemoResult,
+    _resolve_demo_argv,
+    _resolve_demo_input,
+    capture_demo,
+    decompose_demo,
+)
 
 
 def display_demo(
@@ -20,13 +27,16 @@ def display_demo(
     *,
     label: str | None = None,
     input_text: str | None = None,
+    input_lines: Sequence[str] | None = None,
     argv: Sequence[str] | None = None,
     isolate_home: bool = True,
     progress: tuple[int, int] | None = None,
 ) -> DemoResult:
     """Display a demo and its captured result, optionally showing progress in the outer panel."""
     details = decompose_demo(function)
-    result = capture_demo(function, input_text=input_text, argv=argv, isolate_home=isolate_home)
+    effective_input_text = _resolve_demo_input(function, input_text, input_lines)
+    effective_argv = _resolve_demo_argv(function, argv)
+    result = capture_demo(function, input_text=effective_input_text, argv=effective_argv, isolate_home=isolate_home)
     parts = [
         Markdown(details.docstring),
         Rule(characters=" "),
@@ -40,6 +50,38 @@ def display_demo(
             border_style="yellow",
         ),
     ]
+
+    if effective_argv:
+        parts.extend(
+            [
+                Rule(characters=" "),
+                Rule(characters=" "),
+                Panel(
+                    Text("\n".join(repr(argument) for argument in effective_argv)),
+                    title=f"Supplied args/opts to [yellow]{details.name}()[/yellow]",
+                    title_align="left",
+                    expand=False,
+                    padding=1,
+                    border_style="magenta",
+                ),
+            ]
+        )
+
+    if effective_input_text:
+        parts.extend(
+            [
+                Rule(characters=" "),
+                Rule(characters=" "),
+                Panel(
+                    Text(effective_input_text),
+                    title=f"Supplied stdin to [yellow]{details.name}()[/yellow]",
+                    title_align="left",
+                    expand=False,
+                    padding=1,
+                    border_style="cyan",
+                ),
+            ]
+        )
 
     if result.stdout:
         parts.extend(

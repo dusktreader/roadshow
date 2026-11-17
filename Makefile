@@ -11,7 +11,7 @@ qa/test:  ## Run all tests (unit + integration)
 	@uv run pytest
 
 qa/test/unit:  ## Run unit tests only
-	@uv run pytest -m unit tests/unit
+	@uv run pytest tests/unit
 
 qa/test/integration:  ## Run integration tests only
 	@uv run pytest -m integration tests/integration

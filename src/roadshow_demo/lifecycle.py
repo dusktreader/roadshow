@@ -16,29 +16,24 @@ def show_lifecycle_hooks() -> None:
     """
     This demo shows how `before` and `after` callbacks surround the decorated function.
 
-    The setup hook, this demo's body, and the cleanup hook each print a message. Roadshow captures those messages in
-    execution order, demonstrating how to prepare state before a demo and release it afterward.
+    The `before` hook is always run before a demo function and the `after` hook is always run after. Even if the demo
+    function (or any of its calls) raise an exception, the `after` hook will still be run.
     """
-    print("Demo ran between the setup and cleanup hooks.")
+    print("In demo function")
+    raise RuntimeError("Boom!")
 
-
-@roadshow.demo("lifecycle", after=_clean_up_lifecycle_demo)
-def show_cleanup_after_exception() -> None:
-    """
-    This demo shows how an `after` hook runs even when a demo raises an exception.
-
-    It raises a `RuntimeError` intentionally. Roadshow captures the failure after running the cleanup hook, so both the
-    cleanup output and exception appear in this demo's report.
-    """
-    raise RuntimeError("example failure after setup")
-
-
-_XDG_ENVIRONMENT_VARIABLES = ("HOME", "XDG_CACHE_HOME", "XDG_CONFIG_HOME", "XDG_STATE_HOME")
 
 
 def _show_xdg_environment(stage: str) -> None:
+    """
+    Note:
+        This function is replicated in the `show_xdg_isolation()` function. This is by design since demos print out the
+        function body and the logic for the print loop is useful to see there. The logic is bundled in this function so
+        that it can be used in the `before` and `after` hook.
+    """
+    XDG_ENVIRONMENT_VARIABLES = ("HOME", "XDG_CACHE_HOME", "XDG_CONFIG_HOME", "XDG_STATE_HOME")
     print(f"Environment {stage} demo:")
-    for variable in _XDG_ENVIRONMENT_VARIABLES:
+    for variable in XDG_ENVIRONMENT_VARIABLES:
         print(f"{variable}: {os.environ.get(variable, '(unset)')}")
     print()
 
@@ -46,12 +41,14 @@ def _show_xdg_environment(stage: str) -> None:
 @roadshow.demo("lifecycle", before=lambda: _show_xdg_environment("before"), after=lambda: _show_xdg_environment("after"))
 def show_xdg_isolation() -> None:
     """
-    This demo shows how Roadshow restores `HOME` and XDG variables after a demo mutates them.
+    This demo shows how Roadshow isolates `HOME` and XDG variables with temporary location for a demo function.
 
-    The `before` hook prints the original process values. The function sees isolated values, mutates and prints them,
-    and the `after` hook prints the restored process values. Roadshow captures all three reports.
+    This provides isolation so that you can place files for the code in the demo (or any of its calls) to read from
+    standard locations. When the demo is complete, the temporary folders are discarded and the environment variables are
+    restored to their prior values.
     """
+    XDG_ENVIRONMENT_VARIABLES = ("HOME", "XDG_CACHE_HOME", "XDG_CONFIG_HOME", "XDG_STATE_HOME")
     print("Environment during demo:")
-    for variable in _XDG_ENVIRONMENT_VARIABLES:
+    for variable in XDG_ENVIRONMENT_VARIABLES:
         print(f"{variable}: {os.environ.get(variable, '(unset)')}")
     print()

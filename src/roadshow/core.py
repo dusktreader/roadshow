@@ -53,12 +53,54 @@ _DEMO_INPUT_TEXT_ATTRIBUTE = "__roadshow_input_text__"
 _DEMO_ARGV_ATTRIBUTE = "__roadshow_argv__"
 
 
+def _normalize_input_options(input_text: str | None, input_lines: Sequence[str] | None) -> str:
+    RoadshowError.require_condition(
+        input_text is None or input_lines is None,
+        "input_text and input_lines cannot both be provided",
+    )
+    if input_text is not None:
+        RoadshowError.require_condition(isinstance(input_text, str), "A demo's input_text must be a string")
+        return input_text
+    if input_lines is None:
+        return ""
+
+    RoadshowError.require_condition(
+        isinstance(input_lines, Sequence)
+        and not isinstance(input_lines, (str, bytes))
+        and all(isinstance(line, str) for line in input_lines),
+        "A demo's input_lines must be a sequence of strings",
+    )
+    line_breaks = ("\n", "\r", "\v", "\f", "\x1c", "\x1d", "\x1e", "\x85", "\u2028", "\u2029")
+    RoadshowError.require_condition(
+        not any(line_break in line for line in input_lines for line_break in line_breaks),
+        "A demo's input_lines must not contain line breaks",
+    )
+    return "".join(f"{line}\n" for line in input_lines)
+
+
+def _resolve_demo_input(
+    function: DemoFunction,
+    input_text: str | None,
+    input_lines: Sequence[str] | None,
+) -> str:
+    if input_text is None and input_lines is None:
+        return function.__dict__.get(_DEMO_INPUT_TEXT_ATTRIBUTE, "")
+    return _normalize_input_options(input_text, input_lines)
+
+
+def _resolve_demo_argv(function: DemoFunction, argv: Sequence[str] | None) -> Sequence[str]:
+    if argv is None:
+        return function.__dict__.get(_DEMO_ARGV_ATTRIBUTE, ())
+    return argv
+
+
 def demo(
     feature: str,
     *,
     before: Callable[[], object] | None = None,
     after: Callable[[], object] | None = None,
-    input_text: str = "",
+    input_text: str | None = None,
+    input_lines: Sequence[str] | None = None,
     argv: Sequence[str] = (),
 ) -> Callable[[DemoFunction], DemoFunction]:
     """Mark a function as a demo and attach its feature, hooks, and input fixtures."""
@@ -68,7 +110,7 @@ def demo(
     )
     RoadshowError.require_condition(before is None or callable(before), "A demo before hook must be callable")
     RoadshowError.require_condition(after is None or callable(after), "A demo after hook must be callable")
-    RoadshowError.require_condition(isinstance(input_text, str), "A demo's input_text must be a string")
+    demo_input_text = _normalize_input_options(input_text, input_lines)
     RoadshowError.require_condition(
         isinstance(argv, Sequence) and not isinstance(argv, (str, bytes)) and all(isinstance(arg, str) for arg in argv),
         "A demo's argv must be a sequence of strings",
@@ -79,7 +121,7 @@ def demo(
         function.__dict__[_DEMO_FEATURE_ATTRIBUTE] = feature
         function.__dict__[_DEMO_BEFORE_ATTRIBUTE] = before
         function.__dict__[_DEMO_AFTER_ATTRIBUTE] = after
-        function.__dict__[_DEMO_INPUT_TEXT_ATTRIBUTE] = input_text
+        function.__dict__[_DEMO_INPUT_TEXT_ATTRIBUTE] = demo_input_text
         function.__dict__[_DEMO_ARGV_ATTRIBUTE] = demo_argv
         return function
 
@@ -140,14 +182,13 @@ def capture_demo(
     function: DemoFunction,
     *,
     input_text: str | None = None,
+    input_lines: Sequence[str] | None = None,
     argv: Sequence[str] | None = None,
     isolate_home: bool = True,
 ) -> DemoResult:
     """Run a demo while capturing standard streams, input, and process exit."""
-    configured_input_text: str = function.__dict__.get(_DEMO_INPUT_TEXT_ATTRIBUTE, "")
-    configured_argv: Sequence[str] = function.__dict__.get(_DEMO_ARGV_ATTRIBUTE, ())
-    effective_input_text = configured_input_text if input_text is None else input_text
-    effective_argv = configured_argv if argv is None else argv
+    effective_input_text = _resolve_demo_input(function, input_text, input_lines)
+    effective_argv = _resolve_demo_argv(function, argv)
     result = DemoResult()
     stdout = io.StringIO()
     stderr = io.StringIO()

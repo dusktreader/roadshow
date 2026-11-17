@@ -24,6 +24,14 @@ def sample_read_input():
     print(os.environ["HOME"])
 
 
+def make_sample_read_stdin():
+    def read_stdin():
+        """Read all injected input."""
+        print(f"<{sys.stdin.read()}>")
+
+    return read_stdin
+
+
 @demo("errors")
 def sample_exit():
     """Exit with a nonzero status."""
@@ -95,6 +103,16 @@ def test_demo_requires_exactly_one_nonempty_feature():
         call_demo("basic", after="not callable")
     with pytest.raises(RoadshowError, match="input_text must be a string"):
         call_demo("basic", input_text=1)
+    with pytest.raises(RoadshowError, match="input_lines must be a sequence of strings"):
+        call_demo("basic", input_lines="Ada")
+    with pytest.raises(RoadshowError, match="input_lines must be a sequence of strings"):
+        call_demo("basic", input_lines=b"Ada")
+    with pytest.raises(RoadshowError, match="input_lines must be a sequence of strings"):
+        call_demo("basic", input_lines=("Ada", None))
+    with pytest.raises(RoadshowError, match="input_lines must not contain line breaks"):
+        call_demo("basic", input_lines=("Ada\nGrace",))
+    with pytest.raises(RoadshowError, match="input_text and input_lines cannot both be provided"):
+        call_demo("basic", input_text="Ada", input_lines=("Grace",))
     with pytest.raises(RoadshowError, match="argv must be a sequence of strings"):
         call_demo("basic", argv=("valid", None))
 
@@ -139,6 +157,44 @@ def test_capture_demo_captures_output_input_argv_and_isolates_home(monkeypatch: 
     assert result.stdout.startswith("Ada\n--example\n")
     assert "/original/home" not in result.stdout
     assert os.environ["HOME"] == "/original/home"
+
+
+@pytest.mark.parametrize(
+    ("input_lines", "expected"),
+    [(["Ada", "Grace"], "<Ada\nGrace\n>\n"), ([], "<>\n")],
+)
+def test_capture_demo_normalizes_decorator_input_lines(input_lines, expected):
+    function = demo("input", input_lines=input_lines)(make_sample_read_stdin())
+
+    result = capture_demo(function)
+
+    assert result.stdout == expected
+
+
+def test_capture_demo_normalizes_input_lines_override_and_preserves_input_text():
+    function = demo("input", input_text="Configured\ninput")(make_sample_read_stdin())
+
+    configured_result = capture_demo(function)
+    line_result = capture_demo(function, input_lines=["Ada", "Grace"])
+    text_result = capture_demo(function, input_text="Unchanged")
+
+    assert configured_result.stdout == "<Configured\ninput>\n"
+    assert line_result.stdout == "<Ada\nGrace\n>\n"
+    assert text_result.stdout == "<Unchanged>\n"
+
+
+@pytest.mark.parametrize(
+    "input_lines",
+    ["Ada", b"Ada", ["Ada\nGrace"], ["Ada\rGrace"]],
+)
+def test_capture_demo_rejects_invalid_input_lines(input_lines):
+    with pytest.raises(RoadshowError):
+        capture_demo(make_sample_read_stdin(), input_lines=input_lines)
+
+
+def test_capture_demo_rejects_both_input_forms():
+    with pytest.raises(RoadshowError, match="input_text and input_lines cannot both be provided"):
+        capture_demo(make_sample_read_stdin(), input_text="Ada", input_lines=[])
 
 
 def test_capture_demo_captures_exit_code():
