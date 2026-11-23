@@ -23,7 +23,6 @@ def show_lifecycle_hooks() -> None:
     raise RuntimeError("Boom!")
 
 
-
 def _show_xdg_environment(stage: str) -> None:
     """
     Note:
@@ -38,7 +37,11 @@ def _show_xdg_environment(stage: str) -> None:
     print()
 
 
-@roadshow.demo("lifecycle", before=lambda: _show_xdg_environment("before"), after=lambda: _show_xdg_environment("after"))
+@roadshow.demo(
+    "lifecycle",
+    before=lambda: _show_xdg_environment("before"),
+    after=lambda: _show_xdg_environment("after"),
+)
 def show_xdg_isolation() -> None:
     """
     This demo shows how Roadshow isolates `HOME` and XDG variables with temporary location for a demo function.

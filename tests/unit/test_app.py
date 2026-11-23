@@ -11,12 +11,16 @@ from roadshow import DemoResult, Roadshow, get_standalone_module
 from tests.unit import test_core
 
 
-def test_roadshow_groups_module_demos_by_feature():
-    groups = Roadshow(test_core).discover()
+def test_roadshow_groups_module_demos_by_feature_in_configured_order():
+    groups = Roadshow(test_core, feature_order=("features", "errors")).discover()
 
-    assert [function.__name__ for function in groups["errors"]] == ["sample_error", "sample_exit"]
+    assert list(groups)[:2] == ["features", "errors"]
+    assert [function.__name__ for function in groups["errors"]] == ["ordered_errors", "sample_exit", "sample_error"]
     assert [function.__name__ for function in groups["input"]] == ["sample_read_input"]
     assert [function.__name__ for function in groups["source"]] == ["sample_source"]
+
+    default_groups = Roadshow(test_core).discover()
+    assert list(default_groups) == ["errors", "features", "input", "output", "source"]
 
 
 def test_start_filters_selected_features(monkeypatch: pytest.MonkeyPatch):

@@ -51,6 +51,7 @@ _DEMO_BEFORE_ATTRIBUTE = "__roadshow_before__"
 _DEMO_AFTER_ATTRIBUTE = "__roadshow_after__"
 _DEMO_INPUT_TEXT_ATTRIBUTE = "__roadshow_input_text__"
 _DEMO_ARGV_ATTRIBUTE = "__roadshow_argv__"
+_DEMO_ORDER_ATTRIBUTE = "__roadshow_order__"
 
 
 def _normalize_input_options(input_text: str | None, input_lines: Sequence[str] | None) -> str:
@@ -102,6 +103,7 @@ def demo(
     input_text: str | None = None,
     input_lines: Sequence[str] | None = None,
     argv: Sequence[str] = (),
+    order: int | None = None,
 ) -> Callable[[DemoFunction], DemoFunction]:
     """Mark a function as a demo and attach its feature, hooks, and input fixtures."""
     RoadshowError.require_condition(
@@ -123,19 +125,27 @@ def demo(
         function.__dict__[_DEMO_AFTER_ATTRIBUTE] = after
         function.__dict__[_DEMO_INPUT_TEXT_ATTRIBUTE] = demo_input_text
         function.__dict__[_DEMO_ARGV_ATTRIBUTE] = demo_argv
+        function.__dict__[_DEMO_ORDER_ATTRIBUTE] = order
         return function
 
     return decorate
 
 
+def _demo_order_key(function: DemoFunction) -> tuple[bool, int]:
+    order = function.__dict__.get(_DEMO_ORDER_ATTRIBUTE)
+    return (order is None, order if order is not None else 0)
+
+
 def discover_demos(module: ModuleType) -> list[DemoFunction]:
-    """Return featured demo functions defined in a module, sorted by name."""
+    """Return featured demo functions defined in a module in declaration order."""
     demos = [
         member
-        for _, member in inspect.getmembers(module, inspect.isfunction)
-        if member.__module__ == module.__name__ and getattr(member, _DEMO_FEATURE_ATTRIBUTE, None)
+        for member in module.__dict__.values()
+        if inspect.isfunction(member)
+        and member.__module__ == module.__name__
+        and getattr(member, _DEMO_FEATURE_ATTRIBUTE, None)
     ]
-    return sorted(demos, key=lambda function: function.__name__)
+    return sorted(demos, key=_demo_order_key)
 
 
 def decompose_demo(function: DemoFunction) -> DemoDetails:
