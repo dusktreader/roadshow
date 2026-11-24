@@ -1,12 +1,13 @@
 from importlib import import_module
 from io import StringIO
+from types import ModuleType, SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
 import roadshow.app as app_module
 import typer
 from rich.console import Console
-from roadshow import DemoResult, Roadshow, get_standalone_module
+from roadshow import DemoResult, Roadshow, demo, get_standalone_module
 
 from tests.unit import test_core
 
@@ -21,6 +22,48 @@ def test_roadshow_groups_module_demos_by_feature_in_configured_order():
 
     default_groups = Roadshow(test_core).discover()
     assert list(default_groups) == ["errors", "features", "input", "output", "source"]
+
+
+def test_roadshow_orders_demos_after_combining_modules(monkeypatch: pytest.MonkeyPatch):
+    root_module = ModuleType("demo_package")
+    root_module.__path__ = []
+    first_module = ModuleType("demo_package.first")
+    second_module = ModuleType("demo_package.second")
+
+    def later_ordered_demo():
+        pass
+
+    def earlier_ordered_demo():
+        pass
+
+    later_ordered_demo.__module__ = first_module.__name__
+    earlier_ordered_demo.__module__ = second_module.__name__
+    demo("shared", order=10)(later_ordered_demo)
+    demo("shared", order=1)(earlier_ordered_demo)
+    first_module.__dict__["later_ordered_demo"] = later_ordered_demo
+    second_module.__dict__["earlier_ordered_demo"] = earlier_ordered_demo
+    modules = {
+        root_module.__name__: root_module,
+        first_module.__name__: first_module,
+        second_module.__name__: second_module,
+    }
+
+    monkeypatch.setattr(
+        app_module.pkgutil,
+        "walk_packages",
+        lambda package_path, prefix: [
+            SimpleNamespace(name=first_module.__name__),
+            SimpleNamespace(name=second_module.__name__),
+        ],
+    )
+    monkeypatch.setattr(app_module, "import_module", lambda name: modules[name])
+
+    groups = Roadshow(root_module).discover()
+
+    assert [function.__name__ for function in groups["shared"]] == [
+        "earlier_ordered_demo",
+        "later_ordered_demo",
+    ]
 
 
 def test_start_filters_selected_features(monkeypatch: pytest.MonkeyPatch):

@@ -15,7 +15,7 @@ from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.prompt import Confirm
 
-from roadshow.core import _DEMO_FEATURE_ATTRIBUTE, DemoFunction, discover_demos
+from roadshow.core import _DEMO_FEATURE_ATTRIBUTE, DemoFunction, _demo_order_key, discover_demos
 from roadshow.errors import RoadshowError
 from roadshow.render import display_demo
 
@@ -63,6 +63,9 @@ class Roadshow:
             for function in discover_demos(module):
                 feature = function.__dict__[_DEMO_FEATURE_ATTRIBUTE]
                 feature_map[feature].append(function)
+
+        for demos in feature_map.values():
+            demos.sort(key=_demo_order_key)
 
         feature_positions = {feature: position for position, feature in enumerate(self.feature_order)}
         return dict(
