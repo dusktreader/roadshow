@@ -1,5 +1,14 @@
 from roadshow.app import Roadshow, get_standalone_module
-from roadshow.core import DemoDetails, DemoFunction, DemoResult, capture_demo, decompose_demo, demo, discover_demos
+from roadshow.core import (
+    DemoDetails,
+    DemoFunction,
+    DemoResult,
+    capture_demo,
+    decompose_demo,
+    demo,
+    demo_order_key,
+    discover_demos,
+)
 from roadshow.errors import RoadshowError
 from roadshow.version import get_version
 
@@ -15,6 +24,7 @@ __all__ = [
     "capture_demo",
     "decompose_demo",
     "demo",
+    "demo_order_key",
     "discover_demos",
     "get_standalone_module",
 ]

@@ -131,7 +131,7 @@ def demo(
     return decorate
 
 
-def _demo_order_key(function: DemoFunction) -> tuple[bool, int]:
+def demo_order_key(function: DemoFunction) -> tuple[bool, int]:
     order = function.__dict__.get(_DEMO_ORDER_ATTRIBUTE)
     return (order is None, order if order is not None else 0)
 
@@ -145,7 +145,7 @@ def discover_demos(module: ModuleType) -> list[DemoFunction]:
         and member.__module__ == module.__name__
         and getattr(member, _DEMO_FEATURE_ATTRIBUTE, None)
     ]
-    return sorted(demos, key=_demo_order_key)
+    return sorted(demos, key=demo_order_key)
 
 
 def decompose_demo(function: DemoFunction) -> DemoDetails:
