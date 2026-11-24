@@ -15,7 +15,7 @@
         <link rel="prev" href="../quickstart/">
       
       
-        <link rel="next" href="../reference/">
+        <link rel="next" href="../running/">
       
       
         
@@ -360,10 +360,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#use-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Use the CLI
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#discover-demos-in-modules-and-packages" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         Discover demos in modules and packages
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-demo-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Control demo order
       </span>
     </span>
   </a>
@@ -415,10 +437,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#raise-application-errors" class="md-nav__link">
+  <a href="#next-check-out" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Raise application errors
+        Next, check out:
       </span>
     </span>
   </a>
@@ -429,6 +451,32 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../running/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Running demos
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -499,10 +547,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#use-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Use the CLI
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#discover-demos-in-modules-and-packages" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         Discover demos in modules and packages
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-demo-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Control demo order
       </span>
     </span>
   </a>
@@ -554,10 +624,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#raise-application-errors" class="md-nav__link">
+  <a href="#next-check-out" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Raise application errors
+        Next, check out:
       </span>
     </span>
   </a>
@@ -587,46 +657,23 @@
 <h1 id="features">Features</h1>
 <p>Roadshow turns tagged Python functions into demos that can be discovered, run, captured, and rendered.</p>
 <h2 id="tag-demos-and-build-a-cli">Tag demos and build a CLI</h2>
-<p>Mark each demo with one feature name. Roadshow groups tagged functions by feature and displays each function's docstring
-with its source and output.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="sd">"""</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="sd">Demonstrate how Roadshow groups demos by the feature they are showing off.</span>
+<p>Each demo has one feature name. Roadshow groups tagged functions by feature and displays each function's docstring with
+its source and output.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">demo</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sd">Note:</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sd">    Since this demo is not a part of a package, we need to use `get_standalone_module()`.</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sd">    For demos that are part of a package, just pass the package name as the first arg to `Roadshow()` or use the special</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="sd">    `__package__` variable.</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"First Feature"</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">feature_1_1</span><span class="p">():</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="sd">"""Demonstrate the first aspect of feature 1."""</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Look at how cool feature 1 is!"</span><span class="p">)</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sd">"""</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span><span class="p">,</span> <span class="n">demo</span><span class="p">,</span> <span class="n">get_standalone_module</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"First Feature"</span><span class="p">)</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">feature_1_1</span><span class="p">():</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="sd">"""This function demonstrates the first aspect of feature 1."""</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Look at how cool feature 1 is!"</span><span class="p">)</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"First Feature"</span><span class="p">)</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="k">def</span><span class="w"> </span><span class="nf">feature_1_2</span><span class="p">():</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="sd">"""This function demonstrates the second aspect of feature 1."""</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Look at what else feature 1 can do!"</span><span class="p">)</span>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"Second Feature"</span><span class="p">)</span>
-</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="k">def</span><span class="w"> </span><span class="nf">feature_2_1</span><span class="p">():</span>
-</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="sd">"""This function demonstrates the first aspect of feature 2."""</span>
-</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Look at how cool feature 2 is!"</span><span class="p">)</span>
-</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
-</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"Second Feature"</span><span class="p">)</span>
-</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="k">def</span><span class="w"> </span><span class="nf">feature_2_2</span><span class="p">():</span>
-</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="sd">"""This function demonstrates the second aspect of feature 2."""</span>
-</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Look at what else feature 2 can do!"</span><span class="p">)</span>
-</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
-</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>
-</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>    <span class="n">Roadshow</span><span class="p">(</span><span class="n">get_standalone_module</span><span class="p">(),</span> <span class="n">title</span><span class="o">=</span><span class="s2">"examples"</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"First Feature"</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">feature_1_2</span><span class="p">():</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="sd">"""Demonstrate the second aspect of feature 1."""</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Look at what else feature 1 can do!"</span><span class="p">)</span>
 </span></code></pre></div>
-<p>Create an entrypoint that scans the package and starts the CLI:</p>
+<p>An entrypoint scans the package and starts the CLI:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -637,53 +684,86 @@ with its source and output.</p>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">main</span><span class="p">()</span>
 </span></code></pre></div>
-<p>Select one or more feature groups with <code>--feature</code>; repeat the option to select multiple groups. Omit it to run every
-group. By default, Roadshow asks for confirmation before starting and after each demo. <code>--non-interactive</code> skips those
-prompts, runs all selected demos, and exits with status 1 if any demo fails. Roadshow displays a failure and continues to
-the next demo unless the user stops an interactive run.</p>
+<h2 id="use-the-cli">Use the CLI</h2>
+<p>The <code>--help</code> option describes the available CLI options, including feature selection:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>my-project-demo<span class="w"> </span>--help
+</span></code></pre></div>
+<p>The initial welcome panel lists the discovered feature groups and their demos. The <code>--feature</code> option selects one or more
+feature groups; repeated options select multiple groups. Without the option, all feature groups run. The
+<code>--non-interactive</code> option skips confirmation prompts, runs all selected demos, and exits with status 1 if any demo fails.
+Roadshow displays a failure and continues to the next demo unless the user stops an interactive run.</p>
 <p>The <code>errors</code> demo below intentionally raises an exception, so its command displays the captured error and exits 1:</p>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>my-project-demo<span class="w"> </span>--feature<span class="w"> </span>errors<span class="w"> </span>--non-interactive
 </span></code></pre></div>
 <h2 id="discover-demos-in-modules-and-packages">Discover demos in modules and packages</h2>
 <p><code>discover_demos(module)</code> returns tagged functions defined directly in that module. <code>Roadshow(package).discover()</code> imports
 a package and its submodules, then returns demos grouped by feature. Package discovery imports every submodule, so their
 module-level code runs during discovery.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_app</span><span class="w"> </span><span class="kn">import</span> <span class="n">demos</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span><span class="p">,</span> <span class="n">discover_demos</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">module_demos</span> <span class="o">=</span> <span class="n">discover_demos</span><span class="p">(</span><span class="n">demos</span><span class="p">)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">package_demos</span> <span class="o">=</span> <span class="n">Roadshow</span><span class="p">(</span><span class="s2">"my_app"</span><span class="p">)</span><span class="o">.</span><span class="n">discover</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">my_app</span><span class="w"> </span><span class="kn">import</span> <span class="n">demos</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span><span class="p">,</span> <span class="n">discover_demos</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">module_demos</span> <span class="o">=</span> <span class="n">discover_demos</span><span class="p">(</span><span class="n">demos</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">package_demos</span> <span class="o">=</span> <span class="n">Roadshow</span><span class="p">(</span><span class="s2">"my_app"</span><span class="p">)</span><span class="o">.</span><span class="n">discover</span><span class="p">()</span>
 </span></code></pre></div>
 <p>Use <code>Roadshow(get_standalone_module()).run()</code> to discover demos in a directly executed script that is not an importable
 package. The helper supplies the current <code>__main__</code> module in the same position as a package name.</p>
+<h2 id="control-demo-order">Control demo order</h2>
+<p>Functions within a feature run in declaration order by default. An <code>order</code> value overrides that position. Feature groups
+are alphabetical by default; <code>feature_order</code> places listed groups first in the specified order. Groups not listed in
+<code>feature_order</code> remain alphabetical after the listed groups.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span><span class="p">,</span> <span class="n">demo</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"features"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">show_features</span><span class="p">():</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="sd">"""Show the product features second."""</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"features"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">show_feature_intro</span><span class="p">():</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="sd">"""Show the feature introduction first."""</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"features"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">show_feature_details</span><span class="p">():</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="sd">"""Show the feature details third."""</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"errors"</span><span class="p">)</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="k">def</span><span class="w"> </span><span class="nf">show_errors</span><span class="p">():</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">    </span><span class="sd">"""Show error handling after the features."""</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="n">Roadshow</span><span class="p">(</span><span class="s2">"my_app"</span><span class="p">,</span> <span class="n">feature_order</span><span class="o">=</span><span class="p">(</span><span class="s2">"features"</span><span class="p">,</span> <span class="s2">"errors"</span><span class="p">))</span>
+</span></code></pre></div>
 <h2 id="supply-input-and-arguments">Supply input and arguments</h2>
 <p>Set <code>input_text</code> and <code>argv</code> on the decorator to give a demo predictable standard input and command-line arguments. Use
 <code>input_lines</code> instead when each logical input line should be separate: <code>["Ada", "Grace"]</code> supplies <code>"Ada\nGrace\n"</code> and
 <code>[]</code> supplies an empty stream. Roadshow adds a newline after each line. The first <code>sys.argv</code> value is the demo function
 name.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="sd">"""</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="sd">Demonstrate how Roadshow can supply cli args and input to a demo function.</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="sd">Note:</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="sd">    Since this demo is not a part of a package, we need to use `get_standalone_module()`.</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="sd">    For demos that are part of a package, just pass the package name as the first arg to `Roadshow()` or use the special</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="sd">    `__package__` variable.</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="sd">"""</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span><span class="p">,</span> <span class="n">demo</span><span class="p">,</span> <span class="n">get_standalone_module</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"Input Helpers"</span><span class="p">,</span> <span class="n">input_text</span><span class="o">=</span><span class="s2">"Ada</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">(</span><span class="s2">"--formal"</span><span class="p">,))</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">input_helpers</span><span class="p">():</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="sd">"""This demo shows how Roadshow can set stdin and argv for a demo function."""</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Hello, </span><span class="si">{</span><span class="nb">input</span><span class="p">()</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    <span class="n">Roadshow</span><span class="p">(</span><span class="n">get_standalone_module</span><span class="p">(),</span> <span class="n">title</span><span class="o">=</span><span class="s2">"examples"</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="sd">"""</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="sd">Demonstrate how Roadshow can supply cli args and input to a demo function.</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="sd">Note:</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="sd">    Since this demo is not a part of a package, we need to use `get_standalone_module()`.</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="sd">    For demos that are part of a package, just pass the package name as the first arg to `Roadshow()` or use the special</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="sd">    `__package__` variable.</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="sd">"""</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span><span class="p">,</span> <span class="n">demo</span><span class="p">,</span> <span class="n">get_standalone_module</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"Input Helpers"</span><span class="p">,</span> <span class="n">input_text</span><span class="o">=</span><span class="s2">"Ada</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="p">(</span><span class="s2">"--formal"</span><span class="p">,))</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">input_helpers</span><span class="p">():</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">    </span><span class="sd">"""This demo shows how Roadshow can set stdin and argv for a demo function."""</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Hello, </span><span class="si">{</span><span class="nb">input</span><span class="p">()</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>    <span class="n">Roadshow</span><span class="p">(</span><span class="n">get_standalone_module</span><span class="p">(),</span> <span class="n">title</span><span class="o">=</span><span class="s2">"examples"</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </span></code></pre></div>
 <p>The demo reads <code>Ada</code> from <code>input()</code> and sees <code>("--formal",)</code> in <code>sys.argv[1:]</code>. Explicit <code>input_text</code> or
 <code>input_lines</code> arguments to <code>capture_demo()</code> and <code>display_demo()</code> replace the decorator's stdin fixture; <code>argv</code> overrides
@@ -694,49 +774,49 @@ panel shows each token separately and is omitted when <code>argv</code> is empty
 <p>Pass zero-argument callables as <code>before</code> and <code>after</code>. Roadshow captures their output along with the demo output. It runs
 <code>before</code> before home isolation. With isolation enabled, it runs <code>after</code> in a <code>finally</code> block after restoring the
 caller's <code>HOME</code> and XDG values. The cleanup hook still runs if setup or the demo raises.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="sd">"""</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="sd">Demonstrate how Roadshow can use the `before` and `after` lifecycle hooks around a demo function.</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="sd">Note:</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="sd">    Since this demo is not a part of a package, we need to use `get_standalone_module()`.</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="sd">    For demos that are part of a package, just pass the package name as the first arg to `Roadshow()` or use the special</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="sd">    `__package__` variable.</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="sd">"""</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span><span class="p">,</span> <span class="n">demo</span><span class="p">,</span> <span class="n">get_standalone_module</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">announce_start</span><span class="p">():</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Before the demo function"</span><span class="p">)</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="k">def</span><span class="w"> </span><span class="nf">announce_finish</span><span class="p">():</span>
-</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"After the demo function"</span><span class="p">)</span>
-</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>
-</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>
-</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"Lifecycle Hooks"</span><span class="p">,</span> <span class="n">before</span><span class="o">=</span><span class="n">announce_start</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="n">announce_finish</span><span class="p">)</span>
-</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="k">def</span><span class="w"> </span><span class="nf">before_and_after</span><span class="p">():</span>
-</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">    </span><span class="sd">"""This function shows how Roadshow runs `before` and `after` lifecycle hooks around a demo function."""</span>
-</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Inside the demo function"</span><span class="p">)</span>
-</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>
-</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>
-</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>    <span class="n">Roadshow</span><span class="p">(</span><span class="n">get_standalone_module</span><span class="p">(),</span> <span class="n">title</span><span class="o">=</span><span class="s2">"examples"</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="sd">"""</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="sd">Demonstrate how Roadshow can use the `before` and `after` lifecycle hooks around a demo function.</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="sd">Note:</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sd">    Since this demo is not a part of a package, we need to use `get_standalone_module()`.</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sd">    For demos that are part of a package, just pass the package name as the first arg to `Roadshow()` or use the special</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sd">    `__package__` variable.</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="sd">"""</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span><span class="p">,</span> <span class="n">demo</span><span class="p">,</span> <span class="n">get_standalone_module</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">announce_start</span><span class="p">():</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Before the demo function"</span><span class="p">)</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="k">def</span><span class="w"> </span><span class="nf">announce_finish</span><span class="p">():</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"After the demo function"</span><span class="p">)</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"Lifecycle Hooks"</span><span class="p">,</span> <span class="n">before</span><span class="o">=</span><span class="n">announce_start</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="n">announce_finish</span><span class="p">)</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="k">def</span><span class="w"> </span><span class="nf">before_and_after</span><span class="p">():</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="w">    </span><span class="sd">"""This function shows how Roadshow runs `before` and `after` lifecycle hooks around a demo function."""</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Inside the demo function"</span><span class="p">)</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>    <span class="n">Roadshow</span><span class="p">(</span><span class="n">get_standalone_module</span><span class="p">(),</span> <span class="n">title</span><span class="o">=</span><span class="s2">"examples"</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </span></code></pre></div>
 <h2 id="capture-execution-results">Capture execution results</h2>
 <p>Use <code>capture_demo()</code> to run a demo without rendering it. The result contains captured stdout and stderr, and records an
 exception or exit code when one occurs. Check <code>succeeded</code> to determine whether it completed successfully.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">capture_demo</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">show_report</span><span class="p">():</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Three records found."</span><span class="p">)</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">result</span> <span class="o">=</span> <span class="n">capture_demo</span><span class="p">(</span><span class="n">show_report</span><span class="p">)</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">succeeded</span><span class="p">:</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">error</span> <span class="ow">or</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">capture_demo</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">show_report</span><span class="p">():</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Three records found."</span><span class="p">)</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">result</span> <span class="o">=</span> <span class="n">capture_demo</span><span class="p">(</span><span class="n">show_report</span><span class="p">)</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">succeeded</span><span class="p">:</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">error</span> <span class="ow">or</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Capture redirects standard input, output, and error. It records ordinary exceptions in <code>error</code> and <code>SystemExit</code> in
 <code>exit_code</code>. By default, it temporarily points <code>HOME</code> and the XDG cache, config, and state directories at a temporary
@@ -747,46 +827,28 @@ concurrently from multiple threads.</p>
 <p><code>decompose_demo()</code> returns a <code>DemoDetails</code> value with a demo's module, name, docstring, and source. The source includes
 the function signature and executable body. If a demo has no docstring, Roadshow uses <code>function_name() demo</code> as its
 description.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rich.console</span><span class="w"> </span><span class="kn">import</span> <span class="n">Console</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">decompose_demo</span><span class="p">,</span> <span class="n">demo</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow.render</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_demo</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"reports"</span><span class="p">)</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">show_report</span><span class="p">():</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="sd">"""Print a report summary."""</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Three records found."</span><span class="p">)</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="n">details</span> <span class="o">=</span> <span class="n">decompose_demo</span><span class="p">(</span><span class="n">show_report</span><span class="p">)</span>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">details</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="n">display_demo</span><span class="p">(</span><span class="n">show_report</span><span class="p">,</span> <span class="n">Console</span><span class="p">())</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rich.console</span><span class="w"> </span><span class="kn">import</span> <span class="n">Console</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">decompose_demo</span><span class="p">,</span> <span class="n">demo</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow.render</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_demo</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"reports"</span><span class="p">)</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">show_report</span><span class="p">():</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="sd">"""Print a report summary."""</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Three records found."</span><span class="p">)</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="n">details</span> <span class="o">=</span> <span class="n">decompose_demo</span><span class="p">(</span><span class="n">show_report</span><span class="p">)</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">details</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="n">display_demo</span><span class="p">(</span><span class="n">show_report</span><span class="p">,</span> <span class="n">Console</span><span class="p">())</span>
 </span></code></pre></div>
 <p><code>display_demo()</code> runs and captures the demo before rendering its documentation, source, output, errors, and exit status.</p>
-<h2 id="raise-application-errors">Raise application errors</h2>
-<p><code>RoadshowError</code> derives from <code>buzz.Buzz</code>. Use it or its Buzz validation methods when a demo needs to report invalid setup:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="sd">"""</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="sd">Demonstrate how Roadshow will capture exceptions raised in a demo function.</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="sd">Note:</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="sd">    Since this demo is not a part of a package, we need to use `get_standalone_module()`.</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="sd">    For demos that are part of a package, just pass the package name as the first arg to `Roadshow()` or use the special</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="sd">    `__package__` variable.</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="sd">"""</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span><span class="p">,</span> <span class="n">demo</span><span class="p">,</span> <span class="n">get_standalone_module</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"Error Handling"</span><span class="p">)</span>
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">explode</span><span class="p">():</span>
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="sd">"""This function shows how Roadshow captures exceptions raised from a demo function."""</span>
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Now we'll raise an error that Roadshow will capture and display"</span><span class="p">)</span>
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Boom!"</span><span class="p">)</span>
-</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>
-</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
-</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>    <span class="n">Roadshow</span><span class="p">(</span><span class="n">get_standalone_module</span><span class="p">(),</span> <span class="n">title</span><span class="o">=</span><span class="s2">"examples"</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</span></code></pre></div>
+<hr />
+<h2 id="next-check-out">Next, check out:</h2>
+<ul>
+<li><a href="https://github.com/dusktreader/roadshow/tree/main/examples">Usage Examples</a></li>
+<li><a href="../reference/">API reference</a></li>
+</ul>
 
 
 
@@ -835,13 +897,13 @@ description.</p>
         
         
           
-          <a href="../reference/" class="md-footer__link md-footer__link--next" aria-label="Next: Reference">
+          <a href="../running/" class="md-footer__link md-footer__link--next" aria-label="Next: Running demos">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Reference
+                Running demos
               </div>
             </div>
             <div class="md-footer__button md-icon">

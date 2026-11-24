@@ -396,10 +396,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#bind-the-cli-entrypoint" class="md-nav__link">
+  <a href="#the-cli-entrypoint" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Bind the CLI entrypoint
+        The CLI entrypoint
       </span>
     </span>
   </a>
@@ -434,10 +434,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#learn-about-more-features" class="md-nav__link">
+  <a href="#learn-about-more" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Learn about more features
+        Learn about more:
       </span>
     </span>
   </a>
@@ -467,6 +467,32 @@
     
   
   Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../running/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Running demos
 
     
   </span>
@@ -606,10 +632,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#bind-the-cli-entrypoint" class="md-nav__link">
+  <a href="#the-cli-entrypoint" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Bind the CLI entrypoint
+        The CLI entrypoint
       </span>
     </span>
   </a>
@@ -644,10 +670,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#learn-about-more-features" class="md-nav__link">
+  <a href="#learn-about-more" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Learn about more features
+        Learn about more:
       </span>
     </span>
   </a>
@@ -705,42 +731,57 @@
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="sd">"""Print the active configuration."""</span>
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"configuration values"</span><span class="p">)</span>
 </span></code></pre></div>
-<h3 id="bind-the-cli-entrypoint">Bind the CLI entrypoint</h3>
-<p>Create a <code>main.py</code> function that configures Roadshow and starts its Typer CLI:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">my_project_demo</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">Roadshow</span><span class="p">(</span><span class="n">my_project_demo</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"My project"</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">main</span><span class="p">()</span>
+<p>Demos within a feature run in declaration order. An <code>order</code> value overrides a function's position:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">@demo</span><span class="p">(</span><span class="s2">"basics"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">hello_world</span><span class="p">():</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="sd">"""Print a greeting before other basics demos."""</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Hello from my project."</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="the-cli-entrypoint">The CLI entrypoint</h3>
+<p>A <code>main.py</code> function configures Roadshow and starts its Typer CLI. Feature groups are alphabetical by default; a <code>feature_order</code> value places selected groups first in a specific order. Any groups not listed remain alphabetical after them:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">roadshow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Roadshow</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">my_project_demo</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">Roadshow</span><span class="p">(</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="n">my_project_demo</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="n">title</span><span class="o">=</span><span class="s2">"My project"</span><span class="p">,</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="n">feature_order</span><span class="o">=</span><span class="p">(</span><span class="s2">"basics"</span><span class="p">,</span> <span class="s2">"configuration"</span><span class="p">),</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="n">main</span><span class="p">()</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You must pass the module where your demos are defined to <code>Roadshow()</code>. This can be the imported module, a string
-with the name of the module (will auto-import), or the special <code>__package__</code> variable. This will allow <code>Roadshow</code>
-to automatically gather all the demos you have defined in that package.</p>
 </div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>You must pass the module where your demos are defined to `Roadshow()`. This can be the imported module, a string
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>with the name of the module (will auto-import), or the special `__package__` variable. This will allow `Roadshow`
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>to automatically gather all the demos you have defined in that package.
+</span></code></pre></div>
 <p>Bind the function as a console script in <code>pyproject.toml</code>:</p>
-<div class="language-toml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">[project.scripts]</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">my-project-demo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my_project_demo.main:main"</span>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">[project.scripts]</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">my-project-demo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my_project_demo.main:main"</span>
 </span></code></pre></div>
 <h3 id="install-your-project">Install your project</h3>
 <p>Before you can run the demo, you will need to install your python package locally. Typically, you will want to install
 in editable mode so you can tinker on the demos while you build them:</p>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>--editable<span class="w"> </span>.
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pip<span class="w"> </span>install<span class="w"> </span>--editable<span class="w"> </span>.
 </span></code></pre></div>
 <h3 id="run-the-demo">Run the demo</h3>
 <p>Since you defined an entry point in your pyproject.toml, the executable should now be available in your shell:</p>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>my-project-demo
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>my-project-demo
 </span></code></pre></div>
 <p>You can check out options available by passing <code>--help</code> to the command.</p>
 <hr />
-<h2 id="learn-about-more-features">Learn about more features</h2>
-<p>Go to the <a href="../features/">Features</a> page to learn about all the features <code>roadshow</code> provides.</p>
+<h2 id="learn-about-more">Learn about more:</h2>
+<ul>
+<li><a href="../features/">Features</a></li>
+<li><a href="https://github.com/dusktreader/roadshow/tree/main/examples">Usage Examples</a></li>
+<li><a href="../reference/">API reference</a></li>
+</ul>
 
 
 
