@@ -9,7 +9,6 @@ Mark regular Python functions with `@demo` decorators and watch Roadshow demonst
 
 Roadshow requires Python 3.11 or newer.
 
-
 ### Install
 
 Install Roadshow and its CLI dependencies with `pip`:
@@ -17,7 +16,6 @@ Install Roadshow and its CLI dependencies with `pip`:
 ```shell
 pip install roadshow
 ```
-
 
 ### Try the Roadshow demo
 
@@ -31,7 +29,6 @@ roadshow-demo
 ## Build your own demo
 
 Now, you're ready to get started building your own demos for your project!
-
 
 ### Define tagged demos
 
@@ -53,10 +50,18 @@ def show_configuration():
     print("configuration values")
 ```
 
+Demos within a feature run in declaration order. An `order` value overrides a function's position:
 
-### Bind the CLI entrypoint
+```python
+@demo("basics", order=1)
+def hello_world():
+    """Print a greeting before other basics demos."""
+    print("Hello from my project.")
+```
 
-Create a `main.py` function that configures Roadshow and starts its Typer CLI:
+### The CLI entrypoint
+
+A `main.py` function configures Roadshow and starts its Typer CLI. Feature groups are alphabetical by default; a `feature_order` value places selected groups first in a specific order. Any groups not listed remain alphabetical after them:
 
 ```python
 from roadshow import Roadshow
@@ -65,7 +70,11 @@ import my_project_demo
 
 
 def main():
-    Roadshow(my_project_demo, title="My project").run()
+    Roadshow(
+        my_project_demo,
+        title="My project",
+        feature_order=("basics", "configuration"),
+    ).run()
 
 if __name__ == "__main__":
     main()
@@ -73,9 +82,11 @@ if __name__ == "__main__":
 
 !!! note
 
-    You must pass the module where your demos are defined to `Roadshow()`. This can be the imported module, a string
-    with the name of the module (will auto-import), or the special `__package__` variable. This will allow `Roadshow`
-    to automatically gather all the demos you have defined in that package.
+```text
+You must pass the module where your demos are defined to `Roadshow()`. This can be the imported module, a string
+with the name of the module (will auto-import), or the special `__package__` variable. This will allow `Roadshow`
+to automatically gather all the demos you have defined in that package.
+```
 
 Bind the function as a console script in `pyproject.toml`:
 
@@ -83,7 +94,6 @@ Bind the function as a console script in `pyproject.toml`:
 [project.scripts]
 my-project-demo = "my_project_demo.main:main"
 ```
-
 
 ### Install your project
 
@@ -93,7 +103,6 @@ in editable mode so you can tinker on the demos while you build them:
 ```shell
 pip install --editable .
 ```
-
 
 ### Run the demo
 
@@ -107,6 +116,8 @@ You can check out options available by passing `--help` to the command.
 
 ---
 
-## Learn about more features
+## Learn about more:
 
-Go to the [Features](features.md) page to learn about all the features `roadshow` provides.
+- [Features](features.md)
+- [Usage Examples](https://github.com/dusktreader/roadshow/tree/main/examples)
+- [API reference](reference.md)

@@ -10,6 +10,16 @@ from roadshow import RoadshowError, demo
 from roadshow.core import capture_demo, decompose_demo, discover_demos
 
 
+@demo("features")
+def ordered_features():
+    """Show a feature before errors."""
+
+
+@demo("errors")
+def ordered_errors():
+    """Show errors after features."""
+
+
 @demo("source")
 def sample_source():
     """Print a sample value for source extraction."""
@@ -67,13 +77,36 @@ def test_discover_demos_returns_only_marked_local_functions_in_order():
     demos = discover_demos(sys.modules[__name__])
 
     assert [function.__name__ for function in demos] == [
-        "sample_error",
-        "sample_exit",
-        "sample_read_input",
+        "ordered_features",
+        "ordered_errors",
         "sample_source",
+        "sample_read_input",
+        "sample_exit",
+        "sample_error",
         "sample_stderr",
     ]
     assert unmarked_helper not in demos
+
+
+def test_discover_demos_applies_order_override():
+    ordered_module = ModuleType("ordered_module")
+
+    def declared_first():
+        pass
+
+    def declared_second():
+        pass
+
+    declared_first.__module__ = ordered_module.__name__
+    declared_second.__module__ = ordered_module.__name__
+    demo("ordered", order=2)(declared_first)
+    demo("ordered", order=1)(declared_second)
+    ordered_module.__dict__.update(declared_first=declared_first, declared_second=declared_second)
+
+    assert [function.__name__ for function in discover_demos(ordered_module)] == [
+        "declared_second",
+        "declared_first",
+    ]
 
 
 def test_discover_demos_ignores_marked_functions_from_other_modules():

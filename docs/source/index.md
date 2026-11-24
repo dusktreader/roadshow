@@ -14,9 +14,9 @@ the code, the output, and any exceptions that were thrown.
 Roadshow in action
 ///
 
-
 ## Explore
 
 - [Quickstart](quickstart.md)
 - [Features](features.md)
+- [Running demos](running.md)
 - [API reference](reference.md)

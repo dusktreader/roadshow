@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import pkgutil
 from collections import defaultdict
+from collections.abc import Sequence
 from importlib import import_module
 from types import ModuleType
 from typing import Annotated
@@ -14,7 +15,7 @@ from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.prompt import Confirm
 
-from roadshow.core import _DEMO_FEATURE_ATTRIBUTE, DemoFunction, discover_demos
+from roadshow.core import _DEMO_FEATURE_ATTRIBUTE, DemoFunction, demo_order_key, discover_demos
 from roadshow.errors import RoadshowError
 from roadshow.render import display_demo
 
@@ -22,11 +23,23 @@ from roadshow.render import display_demo
 class Roadshow:
     """Discover tagged demos in a package and expose them through a Typer CLI."""
 
-    def __init__(self, package: str | ModuleType, *, title: str | None = None):
+    def __init__(
+        self,
+        package: str | ModuleType,
+        *,
+        title: str | None = None,
+        feature_order: Sequence[str] | None = None,
+    ):
         """Create a Roadshow app for one package or module."""
+        feature_order = [] if feature_order is None else feature_order
+        RoadshowError.require_condition(
+            len(feature_order) == len(set(feature_order)),
+            "A feature_order must not contain duplicate features",
+        )
         self.package = package
         self.package_name = package if isinstance(package, str) else package.__name__
         self.title = title or self.package_name
+        self.feature_order = feature_order
 
     def discover(self) -> dict[str, list[DemoFunction]]:
         """Import the package's modules and group their demos by feature tag."""
@@ -51,10 +64,16 @@ class Roadshow:
                 feature = function.__dict__[_DEMO_FEATURE_ATTRIBUTE]
                 feature_map[feature].append(function)
 
-        return {
-            feature: sorted(demos, key=lambda function: (function.__module__, function.__name__))
-            for feature, demos in sorted(feature_map.items())
-        }
+        for demos in feature_map.values():
+            demos.sort(key=demo_order_key)
+
+        feature_positions = {feature: position for position, feature in enumerate(self.feature_order)}
+        return dict(
+            sorted(
+                feature_map.items(),
+                key=lambda item: (feature_positions.get(item[0], len(feature_positions)), item[0]),
+            )
+        )
 
     def run(self) -> None:
         """Start the Typer CLI for this Roadshow app."""

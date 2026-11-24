@@ -36,7 +36,11 @@ def show_stream_capture() -> None:
     print("This warning is captured from standard error.", file=sys.stderr)
 
 
-@roadshow.demo("capture", input_lines=["input-line-1", "input-line-2"], argv=("arg1", "--opt1", "--opt2=hello"))
+@roadshow.demo(
+    "capture",
+    input_lines=["input-line-1", "input-line-2"],
+    argv=("arg1", "--opt1", "--opt2=hello"),
+)
 def show_input_capture() -> None:
     """
     This demo shows how to provide `sys.stdin` data for a demo function.
@@ -58,4 +62,3 @@ def show_arv_capture() -> None:
     Any reads from `sys.argv` within a demo function (or any of its calls) will receive the supplied `sys.argv`.
     """
     print(f"Arguments: {sys.argv[1:]}")
-
